@@ -1,6 +1,7 @@
 package com.seckill.controller;
 
 import com.seckill.controller.viewObject.UserVO;
+import com.seckill.response.CommonReturnType;
 import com.seckill.service.UserService;
 import com.seckill.service.model.UserModel;
 import org.springframework.beans.BeanUtils;
@@ -19,14 +20,17 @@ public class UserController {
 
     @RequestMapping("/get")
     @ResponseBody
-    public UserVO getUser(@RequestParam(name="id") Integer id){
+    public CommonReturnType getUser(@RequestParam(name="id") Integer id){
         // use service to get the User object with the related id
         // and return it to front-end
 
         UserModel userModel = userService.getUserById(id);
 
         // convert the userModel(with all the info) to userVO(the viewObject that can be used by UI)
-        return convertFromModel(userModel);
+        UserVO userVO = convertFromModel(userModel);
+
+        // return common object
+        return CommonReturnType.create(userVO);
 
     }
 
