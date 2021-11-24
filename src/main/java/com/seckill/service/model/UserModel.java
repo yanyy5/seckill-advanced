@@ -5,7 +5,7 @@ public class UserModel {
     private String name;
     private Byte gender;
     private String age;
-    private String telephone;
+    private String phone;
     private String registerMode;
     private String thirdPartyId;
 
@@ -51,12 +51,12 @@ public class UserModel {
         this.age = age;
     }
 
-    public String getTelephone() {
-        return telephone;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getRegisterMode() {
