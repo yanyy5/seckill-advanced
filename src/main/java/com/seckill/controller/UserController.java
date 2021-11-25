@@ -19,7 +19,7 @@ import java.util.Map;
 
 @Controller("user")
 @RequestMapping("/user")
-public class UserController {
+public class UserController extends BaseController{
 
     @Autowired
     private UserService userService;
@@ -53,26 +53,6 @@ public class UserController {
         UserVO userVO = new UserVO();
         BeanUtils.copyProperties(userModel, userVO);
         return userVO;
-    }
-
-    // identify exception handler to fix the exception not in controller layer
-    @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public Object handlerException(HttpServletRequest request, Exception e){
-
-        BusinessException businessException = (BusinessException)e;
-
-        CommonReturnType commonReturnType = new CommonReturnType();
-        commonReturnType.setStatus("fail");
-
-        Map<String, Object> responseData = new HashMap<>();
-        responseData.put("errCode", businessException.getErrCode());
-        responseData.put("errMsg", businessException.getErrMsg());
-
-        commonReturnType.setData(responseData);
-
-        return commonReturnType;
     }
 
 
