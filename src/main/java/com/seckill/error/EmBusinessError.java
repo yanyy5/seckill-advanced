@@ -2,11 +2,12 @@ package com.seckill.error;
 
 public enum EmBusinessError implements CommonError{
 
-    // common error type: 00001
-    PARAMETER_VALIDATION_ERROR(00001, "invalid para"),
+    // common error type: 10001
+    PARAMETER_VALIDATION_ERROR(10001, "invalid para"),
+    UNKNOWN_ERROR(10002, "unknown error"),
 
-    // start from 10000: about user info error
-    USER_NOT_EXIST(10001, "user not exists"),
+    // start from 20000: about user info error
+    USER_NOT_EXIST(20001, "user not exists"),
     ;
 
     private int errCode;
