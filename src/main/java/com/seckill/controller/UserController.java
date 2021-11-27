@@ -8,26 +8,68 @@ import com.seckill.service.UserService;
 import com.seckill.service.model.UserModel;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import sun.misc.BASE64Encoder;
 
-import javax.servlet.http.HttpServlet;
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Map;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 
 @Controller("user")
 @RequestMapping("/user")
-@CrossOrigin
+@CrossOrigin(allowCredentials = "true", allowedHeaders = "*")
 public class UserController extends BaseController{
 
     @Autowired
     private UserService userService;
 
     @Autowired
+    @Resource
     private HttpServletRequest httpServletRequest;
+
+    // interface:  user sign up/register
+    @RequestMapping(value = "/register", method = {RequestMethod.POST}, consumes = {CONTENT_TYPE_FORMED})
+    @ResponseBody
+    public CommonReturnType register(@RequestParam(name = "phone") String phone,
+                                     @RequestParam(name = "otpCode") String otpCode,
+                                     @RequestParam(name = "usrName") String usrName,
+                                     @RequestParam(name = "gender") Integer gender,
+                                     @RequestParam(name = "password") String password,
+                                     @RequestParam(name = "age") Integer age) throws BusinessException, NoSuchAlgorithmException {
+
+        // validate telephone and otpCode
+        String inSessionOtpCode = (String) httpServletRequest.getSession().getAttribute(phone);
+        if (!com.alibaba.druid.util.StringUtils.equals(otpCode, inSessionOtpCode)){
+            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, "wrong OTP code");
+        }
+
+        // register
+        UserModel userModel = new UserModel();
+        userModel.setName(usrName);
+        userModel.setGender(new Byte(String.valueOf(gender.intValue())));
+        userModel.setAge(age);
+        userModel.setPhone(phone);
+        userModel.setRegisterMode("by Phone");
+        userModel.setEncryptPassword(EncodeByMD5(password));
+
+        userService.register(userModel);
+
+        return CommonReturnType.create(null);
+
+
+    }
+
+    private String EncodeByMD5(String str) throws NoSuchAlgorithmException {
+        MessageDigest md5 = MessageDigest.getInstance("MD5");
+        BASE64Encoder base64Encoder = new BASE64Encoder();
+        String newStr = base64Encoder.encode(md5.digest(str.getBytes(StandardCharsets.UTF_8)));
+        return newStr;
+    }
+
 
     // interface: for a user to get otp messages
     @RequestMapping(value = "/getotp", method = {RequestMethod.POST}, consumes = {CONTENT_TYPE_FORMED})
@@ -46,7 +88,7 @@ public class UserController extends BaseController{
         httpServletRequest.getSession().setAttribute(phone, optCode);
 
         // send the OTP code (message) to users (skip)
-        System.out.println("phone = " + phone + "& optCode = " + optCode);
+        System.out.println("phone = " + phone + " & optCode = " + optCode);
 
         return CommonReturnType.create(null);
     }
