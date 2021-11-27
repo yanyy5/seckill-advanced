@@ -10,4 +10,12 @@ public interface UserService {
 
     void register(UserModel userModel) throws BusinessException;
 
+    /**
+     * validation for user login
+     * @param phone user telephone number
+     * @param password user input password(encoded)
+     * @throws BusinessException
+     */
+    UserModel validateLogin(String phone, String password) throws BusinessException;
+
 }
