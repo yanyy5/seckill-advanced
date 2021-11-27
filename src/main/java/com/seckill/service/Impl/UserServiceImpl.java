@@ -4,11 +4,15 @@ import com.seckill.dao.UserDoMapper;
 import com.seckill.dao.UserPasswordDoMapper;
 import com.seckill.dataObject.UserDo;
 import com.seckill.dataObject.UserPasswordDo;
+import com.seckill.error.BusinessException;
+import com.seckill.error.EmBusinessError;
 import com.seckill.service.UserService;
 import com.seckill.service.model.UserModel;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -33,6 +37,51 @@ public class UserServiceImpl implements UserService {
 
         return convertFromDataObject(userDo, userPasswordDo);
 
+    }
+
+    @Override
+    @Transactional
+    public void register(UserModel userModel) throws BusinessException {
+        if (userModel == null){
+            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR);
+        }
+
+        if (StringUtils.isEmpty(userModel.getName()) || userModel.getGender() == null ||
+        userModel.getAge() == null || StringUtils.isEmpty(userModel.getPhone()) ){
+            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR);
+        }
+
+        // convert userModel to userDo
+        UserDo userDo = convertFromModel(userModel);
+        userDoMapper.insertSelective(userDo);
+
+        userModel.setId(userDo.getId());
+
+        // password
+        UserPasswordDo userPasswordDo = convertPasswordFromModel(userModel);
+        userPasswordDoMapper.insertSelective(userPasswordDo);
+
+        return;
+
+    }
+
+    private UserDo convertFromModel(UserModel userModel){
+        if (userModel == null){
+            return null;
+        }
+        UserDo userDo = new UserDo();
+        BeanUtils.copyProperties(userModel, userDo);
+        return userDo;
+    }
+
+    private UserPasswordDo convertPasswordFromModel(UserModel userModel){
+        if (userModel == null){
+            return null;
+        }
+        UserPasswordDo userPasswordDo = new UserPasswordDo();
+        userPasswordDo.setEncryptPassword(userModel.getEncryptPassword());
+        userPasswordDo.setUserId(userModel.getId());
+        return userPasswordDo;
     }
 
     private UserModel convertFromDataObject(UserDo userDo, UserPasswordDo userPasswordDo){
