@@ -6,6 +6,7 @@ import com.seckill.error.EmBusinessError;
 import com.seckill.response.CommonReturnType;
 import com.seckill.service.UserService;
 import com.seckill.service.model.UserModel;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +31,28 @@ public class UserController extends BaseController{
     @Autowired
     @Resource
     private HttpServletRequest httpServletRequest;
+
+    // interface:  user login
+    @RequestMapping(value = "/login", method = {RequestMethod.POST}, consumes = {CONTENT_TYPE_FORMED})
+    @ResponseBody
+    public CommonReturnType login(@RequestParam(name = "phone") String phone,
+                                  @RequestParam(name = "password") String password) throws NoSuchAlgorithmException, BusinessException {
+
+        // validation
+        if (StringUtils.isEmpty(phone) || StringUtils.isEmpty(password)){
+            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR);
+        }
+
+        // user login
+        UserModel userModel = userService.validateLogin(phone, EncodeByMD5(password));
+
+        // add token to the session(user login successfully)
+        httpServletRequest.getSession().setAttribute("IS_LOGIN", true);
+        httpServletRequest.getSession().setAttribute("LOGIN_USER", userModel);
+
+        return CommonReturnType.create(null);
+
+    }
 
     // interface:  user sign up/register
     @RequestMapping(value = "/register", method = {RequestMethod.POST}, consumes = {CONTENT_TYPE_FORMED})
