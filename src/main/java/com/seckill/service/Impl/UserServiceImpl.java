@@ -8,11 +8,16 @@ import com.seckill.error.BusinessException;
 import com.seckill.error.EmBusinessError;
 import com.seckill.service.UserService;
 import com.seckill.service.model.UserModel;
+import com.seckill.validator.ValidationResult;
+import com.seckill.validator.ValidatorImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.xml.sax.SAXException;
+
+import java.io.IOException;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -22,6 +27,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserPasswordDoMapper userPasswordDoMapper;
+
+    @Autowired
+    private ValidatorImpl validator;
 
     @Override
     public UserModel getUserById(Integer id) {
@@ -46,9 +54,9 @@ public class UserServiceImpl implements UserService {
             throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR);
         }
 
-        if (StringUtils.isEmpty(userModel.getName()) || userModel.getGender() == null ||
-        userModel.getAge() == null || StringUtils.isEmpty(userModel.getPhone()) ){
-            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR);
+        ValidationResult result = validator.validate(userModel);
+        if (result.isHasErrors()){
+            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, result.getErrMsg());
         }
 
         // convert userModel to userDo
