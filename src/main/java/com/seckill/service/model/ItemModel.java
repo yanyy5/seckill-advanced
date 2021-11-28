@@ -1,15 +1,30 @@
 package com.seckill.service.model;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 public class ItemModel {
 
     private Integer id;
+
+    @NotBlank(message = "The item name cannot be blank.")
     private String title;   // item name
+
+    @NotNull(message = "The item price cannot be null.")
+    @Min(value = 0, message = "The price must be larger than 0.")
     private BigDecimal price;
+
+    @NotNull(message = "The item stock cannot be null.")
     private Integer stock;
+
+    @NotBlank(message = "The item description cannot be blank.")
     private String description;
+
     private Integer sales;
+
+    @NotBlank(message = "The item image cannot be blank.")
     private String imgUrl;
 
     public Integer getId() {
@@ -28,7 +43,8 @@ public class ItemModel {
         this.title = title;
     }
 
-    public BigDecimal getPrice() {
+    public @NotNull(message = "The item price cannot be null.") @Min(value = 0, message = "The " +
+            "price must be larger than 0.") BigDecimal getPrice() {
         return price;
     }
 
