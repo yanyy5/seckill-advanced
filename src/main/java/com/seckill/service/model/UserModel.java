@@ -1,14 +1,32 @@
 package com.seckill.service.model;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 public class UserModel {
+
     private Integer id;
+
+    @NotBlank(message = "Username cannot be blank.")
     private String name;
+
+    @NotNull(message = "Gender cannot be null.")
     private Byte gender;
+
+    @NotNull(message = "Age cannot be null.")
+    @Min(value = 0, message = "Age must be larger than 0.")
+    @Max(value = 150, message = "Age must be less than 150.")
     private Integer age;
+
+    @NotBlank(message = "Phone number cannot be blank.")
     private String phone;
+
     private String registerMode;
     private String thirdPartyId;
 
+    @NotBlank(message = "Password cannot be blank.")
     private String encryptPassword;
 
     public String getEncryptPassword() {
