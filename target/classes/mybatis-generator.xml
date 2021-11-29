@@ -7,7 +7,7 @@
 <!--    <classPathEntry location="/Program Files/IBM/SQLLIB/java/db2java.zip" />-->
 
     <context id="DB2Tables" targetRuntime="MyBatis3">
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
                         connectionURL="jdbc:mysql://localhost:3306/seckill"
                         userId="root"
                         password="19971019">
@@ -41,7 +41,7 @@
 <!--               enableDeleteByExample="false" enableSelectByExample="false"-->
 <!--               selectByExampleQueryId="false">-->
 <!--        </table>-->
-        <table schema="seckill" tableName="item" domainObjectName="ItemDo"
+        <table schema="seckill" tableName="order_info" domainObjectName="OrderDo"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
