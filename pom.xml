@@ -151,8 +151,8 @@
           <configuration>
             <!--允许移动生成的文件-->
             <verbose>true</verbose>
-            <!--实际企业开发中最好不要这样，容易把别人的工作覆盖掉-->
-            <overwrite>true</overwrite>
+            <!--实际企业开发中最好不要true，容易把别人的工作覆盖掉-->
+            <overwrite>false</overwrite>
             <configurationFile>src/main/resources/mybatis-generator.xml</configurationFile>
           </configuration>
         </plugin>

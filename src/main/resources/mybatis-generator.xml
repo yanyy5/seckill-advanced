@@ -31,16 +31,26 @@
         </javaClientGenerator>
 
         <!-- generate table and class -->
-        <table schema="seckill" tableName="user_info" domainObjectName="UserDo"
-               enableCountByExample="false" enableUpdateByExample="false"
-                enableDeleteByExample="false" enableSelectByExample="false"
-                selectByExampleQueryId="false">
-        </table>
-        <table schema="seckill" tableName="user_password" domainObjectName="UserPasswordDo"
+<!--        <table schema="seckill" tableName="user_info" domainObjectName="UserDo"-->
+<!--               enableCountByExample="false" enableUpdateByExample="false"-->
+<!--                enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--                selectByExampleQueryId="false">-->
+<!--        </table>-->
+<!--        <table schema="seckill" tableName="user_password" domainObjectName="UserPasswordDo"-->
+<!--               enableCountByExample="false" enableUpdateByExample="false"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--               selectByExampleQueryId="false">-->
+<!--        </table>-->
+        <table schema="seckill" tableName="item" domainObjectName="ItemDo"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
         </table>
+<!--        <table schema="seckill" tableName="item_stock" domainObjectName="ItemStockDo"-->
+<!--               enableCountByExample="false" enableUpdateByExample="false"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--               selectByExampleQueryId="false">-->
+<!--        </table>-->
 
     </context>
 </generatorConfiguration>
