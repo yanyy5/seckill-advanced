@@ -16,4 +16,10 @@ public interface ItemService {
     // view item details
     ItemModel getItemById(Integer id);
 
+    // modify stock
+    boolean decreaseStock(Integer itemId, Integer amount) throws BusinessException;
+
+    // modify sales
+    void increaseSales(Integer itemId, Integer amount) throws BusinessException;
+
 }
