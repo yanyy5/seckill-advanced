@@ -10,7 +10,7 @@ public class OrderModel {
 
     private Integer itemId;
 
-    private Integer itemPrice; // single price at that time
+    private BigDecimal itemPrice; // single price at that time
 
     private Integer amount; // number of item
 
@@ -56,11 +56,11 @@ public class OrderModel {
         this.orderPrice = orderPrice;
     }
 
-    public Integer getItemPrice() {
+    public BigDecimal getItemPrice() {
         return itemPrice;
     }
 
-    public void setItemPrice(Integer itemPrice) {
+    public void setItemPrice(BigDecimal itemPrice) {
         this.itemPrice = itemPrice;
     }
 }
