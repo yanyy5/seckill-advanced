@@ -27,6 +27,16 @@ public class ItemModel {
     @NotBlank(message = "The item image cannot be blank.")
     private String imgUrl;
 
+    private PromoModel promoModel;  // if promoModel != null, this item has promotion(status=1/2)
+
+    public PromoModel getPromoModel() {
+        return promoModel;
+    }
+
+    public void setPromoModel(PromoModel promoModel) {
+        this.promoModel = promoModel;
+    }
+
     public Integer getId() {
         return id;
     }

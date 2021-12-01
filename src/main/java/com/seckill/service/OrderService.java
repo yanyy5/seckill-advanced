@@ -5,6 +5,7 @@ import com.seckill.service.model.OrderModel;
 
 public interface OrderService {
 
-    OrderModel createOrder(Integer userId, Integer itemId, Integer amount) throws BusinessException;
+    // get promoId from front-end, and validate
+    OrderModel createOrder(Integer userId, Integer itemId, Integer promoId, Integer amount) throws BusinessException;
 
 }

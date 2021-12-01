@@ -7,7 +7,9 @@ import com.seckill.dataObject.ItemStockDo;
 import com.seckill.error.BusinessException;
 import com.seckill.error.EmBusinessError;
 import com.seckill.service.ItemService;
+import com.seckill.service.PromoService;
 import com.seckill.service.model.ItemModel;
+import com.seckill.service.model.PromoModel;
 import com.seckill.validator.ValidationResult;
 import com.seckill.validator.ValidatorImpl;
 import org.springframework.beans.BeanUtils;
@@ -30,6 +32,9 @@ public class ItemServiceImpl implements ItemService {
 
     @Autowired
     private ItemStockDoMapper itemStockDoMapper;
+
+    @Autowired
+    private PromoService promoService;
 
 
     @Override
@@ -106,6 +111,12 @@ public class ItemServiceImpl implements ItemService {
 
         // convert data object to model
         ItemModel itemModel = convertModelFromDataObject(itemDo, itemStockDo);
+
+        // get info of promo item
+        PromoModel promoModel = promoService.getPromoByItemId(itemModel.getId());
+        if (promoModel != null && promoModel.getStatus().intValue() != 3){
+            itemModel.setPromoModel(promoModel);
+        }
 
         return itemModel;
     }

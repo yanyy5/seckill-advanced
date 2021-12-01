@@ -1,8 +1,5 @@
 package com.seckill.controller.viewObject;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 public class ItemVO {
@@ -20,6 +17,14 @@ public class ItemVO {
     private Integer sales;
 
     private String imgUrl;
+
+    private Integer promoStatus;    // 0-没有 1-没开始 2-进行中
+
+    private BigDecimal promoPrice;
+
+    private Integer promoId;
+
+    private String startDate; // 倒计时
 
     public Integer getId() {
         return id;
@@ -75,5 +80,37 @@ public class ItemVO {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
+    }
+
+    public Integer getPromoStatus() {
+        return promoStatus;
+    }
+
+    public void setPromoStatus(Integer promoStatus) {
+        this.promoStatus = promoStatus;
+    }
+
+    public BigDecimal getPromoPrice() {
+        return promoPrice;
+    }
+
+    public void setPromoPrice(BigDecimal promoPrice) {
+        this.promoPrice = promoPrice;
+    }
+
+    public Integer getPromoId() {
+        return promoId;
+    }
+
+    public void setPromoId(Integer promoId) {
+        this.promoId = promoId;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
     }
 }
