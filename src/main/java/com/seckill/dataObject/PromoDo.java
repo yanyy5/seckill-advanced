@@ -29,6 +29,7 @@ public class PromoDo {
      * @mbg.generated Tue Nov 30 15:41:31 CST 2021
      */
     private Date startDate;
+    private Date endDate;
 
     /**
      *
@@ -118,6 +119,14 @@ public class PromoDo {
      */
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     /**
