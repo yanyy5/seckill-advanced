@@ -11,13 +11,14 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import sun.misc.BASE64Encoder;
+//import sun.misc.BASE64Encoder;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 import java.util.Random;
 
 @Controller("user")
@@ -88,8 +89,12 @@ public class UserController extends BaseController{
 
     private String EncodeByMD5(String str) throws NoSuchAlgorithmException {
         MessageDigest md5 = MessageDigest.getInstance("MD5");
-        BASE64Encoder base64Encoder = new BASE64Encoder();
-        String newStr = base64Encoder.encode(md5.digest(str.getBytes(StandardCharsets.UTF_8)));
+//        BASE64Encoder base64Encoder = new BASE64Encoder();
+//        String newStr = base64Encoder.encode(md5.digest(str.getBytes(StandardCharsets.UTF_8)));
+
+        Base64.Encoder encoder = Base64.getMimeEncoder();
+        String newStr = encoder.encodeToString(md5.digest(str.getBytes(StandardCharsets.UTF_8)));
+
         return newStr;
     }
 
