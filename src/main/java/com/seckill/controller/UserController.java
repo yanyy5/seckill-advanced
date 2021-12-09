@@ -9,6 +9,7 @@ import com.seckill.service.model.UserModel;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 //import sun.misc.BASE64Encoder;
@@ -20,6 +21,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import java.util.Random;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 @Controller("user")
 @RequestMapping("/user")
@@ -32,6 +35,9 @@ public class UserController extends BaseController{
     @Autowired
     @Resource
     private HttpServletRequest httpServletRequest;
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     // interface:  user login
     @RequestMapping(value = "/login", method = {RequestMethod.POST}, consumes = {CONTENT_TYPE_FORMED})
@@ -48,10 +54,21 @@ public class UserController extends BaseController{
         UserModel userModel = userService.validateLogin(phone, EncodeByMD5(password));
 
         // add token to the session(user login successfully)
-        httpServletRequest.getSession().setAttribute("IS_LOGIN", true);
-        httpServletRequest.getSession().setAttribute("LOGIN_USER", userModel);
 
-        return CommonReturnType.create(null);
+        // modify: save login info and token in redis (user login successfully)
+
+        // generate login token: UUID
+        String uuidToken = UUID.randomUUID().toString();
+        uuidToken = uuidToken.replace("-", "");
+
+        // set the relationship: token and user login
+        redisTemplate.opsForValue().set(uuidToken, userModel);
+        redisTemplate.expire(uuidToken, 1, TimeUnit.HOURS);
+
+//        httpServletRequest.getSession().setAttribute("IS_LOGIN", true);
+//        httpServletRequest.getSession().setAttribute("LOGIN_USER", userModel);
+
+        return CommonReturnType.create(uuidToken);
 
     }
 

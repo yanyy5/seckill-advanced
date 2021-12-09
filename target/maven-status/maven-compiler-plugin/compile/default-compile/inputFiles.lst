@@ -3,6 +3,7 @@
 /Users/yangyang/IdeaProjects/seckill-advanced/src/main/java/com/seckill/error/BusinessException.java
 /Users/yangyang/IdeaProjects/seckill-advanced/src/main/java/com/seckill/dataObject/OrderDo.java
 /Users/yangyang/IdeaProjects/seckill-advanced/src/main/java/com/seckill/service/Impl/UserServiceImpl.java
+/Users/yangyang/IdeaProjects/seckill-advanced/src/main/java/com/seckill/config/RedisConfig.java
 /Users/yangyang/IdeaProjects/seckill-advanced/src/main/java/com/seckill/response/CommonReturnType.java
 /Users/yangyang/IdeaProjects/seckill-advanced/src/main/java/com/seckill/controller/OrderController.java
 /Users/yangyang/IdeaProjects/seckill-advanced/src/main/java/com/seckill/dataObject/UserPasswordDo.java
@@ -11,6 +12,7 @@
 /Users/yangyang/IdeaProjects/seckill-advanced/src/main/java/com/seckill/service/OrderService.java
 /Users/yangyang/IdeaProjects/seckill-advanced/src/main/java/com/seckill/dao/ItemDoMapper.java
 /Users/yangyang/IdeaProjects/seckill-advanced/src/main/java/com/seckill/service/ItemService.java
+/Users/yangyang/IdeaProjects/seckill-advanced/src/main/java/com/seckill/controller/GlobalExceptionHandler.java
 /Users/yangyang/IdeaProjects/seckill-advanced/src/main/java/com/seckill/dao/UserPasswordDoMapper.java
 /Users/yangyang/IdeaProjects/seckill-advanced/src/main/java/com/seckill/service/PromoService.java
 /Users/yangyang/IdeaProjects/seckill-advanced/src/main/java/com/seckill/controller/viewObject/ItemVO.java
@@ -26,6 +28,7 @@
 /Users/yangyang/IdeaProjects/seckill-advanced/src/main/java/com/seckill/dataObject/ItemDo.java
 /Users/yangyang/IdeaProjects/seckill-advanced/src/main/java/com/seckill/controller/ItemController.java
 /Users/yangyang/IdeaProjects/seckill-advanced/src/main/java/com/seckill/error/EmBusinessError.java
+/Users/yangyang/IdeaProjects/seckill-advanced/src/main/java/com/seckill/config/WebServerConfiguration.java
 /Users/yangyang/IdeaProjects/seckill-advanced/src/main/java/com/seckill/dao/OrderDoMapper.java
 /Users/yangyang/IdeaProjects/seckill-advanced/src/main/java/com/seckill/service/model/PromoModel.java
 /Users/yangyang/IdeaProjects/seckill-advanced/src/main/java/com/seckill/App.java
