@@ -38,5 +38,6 @@ com/seckill/validator/ValidatorImpl.class
 com/seckill/dao/PromoDoMapper.class
 com/seckill/service/model/OrderModel.class
 com/seckill/dao/UserDoMapper.class
+com/seckill/config/RedisConfig.class
 com/seckill/dataObject/ItemStockDo.class
 com/seckill/controller/viewObject/ItemVO.class

@@ -3,6 +3,7 @@
 /Users/yangyang/IdeaProjects/seckill-advanced/src/main/java/com/seckill/error/BusinessException.java
 /Users/yangyang/IdeaProjects/seckill-advanced/src/main/java/com/seckill/dataObject/OrderDo.java
 /Users/yangyang/IdeaProjects/seckill-advanced/src/main/java/com/seckill/service/Impl/UserServiceImpl.java
+/Users/yangyang/IdeaProjects/seckill-advanced/src/main/java/com/seckill/config/RedisConfig.java
 /Users/yangyang/IdeaProjects/seckill-advanced/src/main/java/com/seckill/response/CommonReturnType.java
 /Users/yangyang/IdeaProjects/seckill-advanced/src/main/java/com/seckill/controller/OrderController.java
 /Users/yangyang/IdeaProjects/seckill-advanced/src/main/java/com/seckill/dataObject/UserPasswordDo.java
