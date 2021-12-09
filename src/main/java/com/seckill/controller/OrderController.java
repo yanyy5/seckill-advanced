@@ -6,7 +6,9 @@ import com.seckill.response.CommonReturnType;
 import com.seckill.service.OrderService;
 import com.seckill.service.model.OrderModel;
 import com.seckill.service.model.UserModel;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +27,9 @@ public class OrderController extends BaseController{
     @Resource
     private HttpServletRequest httpServletRequest;
 
+    @Autowired
+    private RedisTemplate redisTemplate;
+
     // controller: create order
     @RequestMapping(value = "/create", method = {RequestMethod.POST}, consumes = {CONTENT_TYPE_FORMED})
     @ResponseBody
@@ -33,13 +38,19 @@ public class OrderController extends BaseController{
                                         @RequestParam(name = "promoId", required = false)Integer promoId
                                         ) throws BusinessException {
 
-        Boolean isLogin = (Boolean) httpServletRequest.getSession().getAttribute("IS_LOGIN");
-        if (isLogin == null || !isLogin){
+//        Boolean isLogin = (Boolean) httpServletRequest.getSession().getAttribute("IS_LOGIN");
+
+        String token = httpServletRequest.getParameterMap().get("token")[0];
+        if (StringUtils.isEmpty(token)){
+            throw new BusinessException(EmBusinessError.USER_NOT_LOGIN, "please login");
+        }
+        // get user login info
+        UserModel userModel = (UserModel) redisTemplate.opsForValue().get(token);
+        if (userModel == null){
             throw new BusinessException(EmBusinessError.USER_NOT_LOGIN, "please login");
         }
 
-        // get user login info
-        UserModel userModel = (UserModel) httpServletRequest.getSession().getAttribute("LOGIN_USER");
+//        UserModel userModel = (UserModel) httpServletRequest.getSession().getAttribute("LOGIN_USER");
         OrderModel orderModel = orderService.createOrder(userModel.getId(), itemId, promoId, amount);
 
         return CommonReturnType.create(null);
