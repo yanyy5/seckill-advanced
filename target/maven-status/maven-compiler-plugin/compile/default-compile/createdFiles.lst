@@ -6,6 +6,7 @@ com/seckill/dataObject/UserDo.class
 com/seckill/dataObject/UserPasswordDo.class
 com/seckill/error/CommonError.class
 com/seckill/dao/UserPasswordDoMapper.class
+com/seckill/serializer/JodaDateTimeJsonDeserializer.class
 com/seckill/response/CommonReturnType.class
 com/seckill/dataObject/OrderDo.class
 com/seckill/App.class
@@ -15,16 +16,19 @@ com/seckill/config/WebServerConfiguration.class
 com/seckill/controller/OrderController.class
 com/seckill/config/WebServerConfiguration$1.class
 com/seckill/dao/ItemStockDoMapper.class
+com/seckill/serializer/JodaDateTimeJsonSerializer.class
 com/seckill/service/ItemService.class
 com/seckill/service/UserService.class
 com/seckill/service/OrderService.class
 com/seckill/service/model/UserModel.class
+com/seckill/service/CacheService.class
 com/seckill/service/model/PromoModel.class
 com/seckill/service/Impl/ItemServiceImpl.class
 com/seckill/service/PromoService.class
 com/seckill/error/EmBusinessError.class
 com/seckill/service/Impl/OrderServiceImpl.class
 com/seckill/controller/GlobalExceptionHandler.class
+com/seckill/service/Impl/CacheServiceImpl.class
 com/seckill/service/Impl/PromoServiceImpl.class
 com/seckill/dataObject/PromoDo.class
 com/seckill/dao/ItemDoMapper.class
